@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机数生成器</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<h1>随机数生成器</h1>
+    <label for="total">请输入一个任意数:</label>
+    <input type="number" id="total" name="total">
+    <button onclick="generateRandomNumbers()">生成随机数</button>
+
+    <p id="result"></p>
+
+    <script>
+        function generateRandomNumbers() {
+            var total = document.getElementById("total").value;
+
+            $.ajax({
+                url: "/RandomNumber/generateRandomNumbers", // 根据你的项目上下文设置正确的URL
+                type: "GET",
+                data: { total: total },
+                success: function(response) {
+                    document.getElementById("result").innerHTML = 
+                        "生成的三个随机数分别为: " + response.num1 + ", " + response.num2 + ", " + response.num3 + "<br>" +
+                        "它们的和为: " + response.sum;
+                },
+                error: function(error) {
+                    console.log("Error: ", error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
